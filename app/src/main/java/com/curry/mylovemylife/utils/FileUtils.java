@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 public class FileUtils {
     /**
      * 外部存储是否可用,是否存在SDCard
+     *
      * @return
      */
     public static boolean isExternalStorageAvailable() {
@@ -32,10 +33,11 @@ public class FileUtils {
     /**
      * 获取当前可用内存大小
      * api>18 getBlockSizeLong()、getAvailableBlocksLong()
+     *
      * @return
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-    public static String getAvailableMemorySize(Context context){
+    public static String getAvailableMemorySize(Context context) {
         File filePath = Environment.getDataDirectory();
         StatFs statFs = new StatFs(filePath.getPath());
         //字节
@@ -50,6 +52,7 @@ public class FileUtils {
 
     /**
      * 获取手机内部总的存储空间
+     *
      * @param context
      * @return
      */
@@ -67,6 +70,7 @@ public class FileUtils {
 
     /**
      * 获取手机外部可用空间大小
+     *
      * @param context
      * @return
      */
@@ -86,14 +90,16 @@ public class FileUtils {
 
     /**
      * 获取手机外部总空间大小
+     *
      * @return
      */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public static String getTotalExternalMemorySize(Context context) {
         if (isExternalStorageAvailable()) {
             File path = Environment.getExternalStorageDirectory(); //获取SDCard根目录
             StatFs stat = new StatFs(path.getPath());
-            long blockSize = stat.getBlockSize();
-            long totalBlocks = stat.getBlockCount();
+            long blockSize = stat.getBlockSizeLong();
+            long totalBlocks = stat.getBlockCountLong();
             String size = Formatter.formatFileSize(context, totalBlocks * blockSize);//GB M KB
             return size;
         } else {
@@ -118,7 +124,7 @@ public class FileUtils {
             String subMemoryLine = memoryLine.substring(memoryLine.indexOf("MemTotal:"));
             bufferedReader.close();
             //"\\D+"正则表达式 : 标识所有数字及0-9
-            String size = Formatter.formatFileSize(context, Integer.parseInt(subMemoryLine.replaceAll("\\D+", ""))*1024);//GB M KB
+            String size = Formatter.formatFileSize(context, Integer.parseInt(subMemoryLine.replaceAll("\\D+", "")) * 1024);//GB M KB
             return size;
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,9 +139,9 @@ public class FileUtils {
      * @return 当前可用内存单位为B。
      */
     public static String getAvailableMemory(Context context) {
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
-        am.getMemoryInfo(memoryInfo);
+        activityManager.getMemoryInfo(memoryInfo);
         String size = Formatter.formatFileSize(context, memoryInfo.availMem);//GB M KB
         return size;
     }
@@ -146,7 +152,7 @@ public class FileUtils {
     /**
      * 单位换算
      *
-     * @param size 单位为B
+     * @param size      单位为B
      * @param isInteger 是否返回取整的单位
      * @return 转换后的单位
      */

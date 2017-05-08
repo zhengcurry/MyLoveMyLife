@@ -1,35 +1,38 @@
 package com.curry.mylovemylife.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.curry.mylovemylife.R;
-import com.curry.mylovemylife.utils.FileUtils;
-import com.curry.mylovemylife.utils.GetDeviceInfo;
+import com.curry.mylovemylife.widget.AnimationButton;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private TextView mTextView;
+    private AnimationButton animationButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        initView();
+//        initView();
 
-        String testStr = "SD卡是否存在："+FileUtils.isExternalStorageAvailable()+"\n"
-                +"可用内存大小："+ FileUtils.getAvailableMemorySize(LoginActivity.this)+"\n"
-                +"获得系统总内存"+FileUtils.getTotalMemory(this)+"\n"
-                +"获取手机外部可用空间大小"+FileUtils.getAvailableExternalMemorySize(this)+"\n"
-                +"获取手机外部总空间大小"+FileUtils.getTotalExternalMemorySize(this)+"\n"
-                +"获取手机内部总的存储空间"+FileUtils.getTotalInternalMemorySize(this)+"\n"
-                +"获取系统总内存"+FileUtils.getTotalMemorySize(this)+"\n"
-                +"获取当前可用内存"+FileUtils.getAvailableMemory(this);
-        mTextView.setText(testStr);
+        animationButton = (AnimationButton)findViewById(R.id.action_button);
+        animationButton.setAnimationButtonListener(new AnimationButton.AnimationButtonListener() {
+            @Override
+            public void onClickListener() {
+                animationButton.start();
+            }
+
+            @Override
+            public void animationFinish() {
+                Toast.makeText(LoginActivity.this, "动画执行完毕", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void initView(){
-        mTextView = (TextView) findViewById(R.id.text);
+    private void initView() {
+        mTextView = (TextView) findViewById(R.id.text1);
     }
 }
