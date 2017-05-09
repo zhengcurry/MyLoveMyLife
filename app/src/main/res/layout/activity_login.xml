@@ -10,7 +10,7 @@
         android:text="aa"
         android:visibility="gone" />
 
-    <com.curry.mylovemylife.AnimationButton
+    <com.curry.mylovemylife.widget.AnimationButton
         android:id="@+id/action_button"
         android:layout_width="200dp"
         android:layout_height="50dp" />

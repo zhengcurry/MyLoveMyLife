@@ -184,15 +184,15 @@ public class AnimationButton extends View {
      */
     private void initAnimation() {
         set_rect_to_angle_animation();
-        set_rect_to_circle_animation();
-        set_move_to_up_animation();
-        set_draw_ok_animation();
+//        set_rect_to_circle_animation();
+//        set_move_to_up_animation();
+//        set_draw_ok_animation();
 
         animatorSet
-                .play(animator_move_to_up)
-                .before(animator_draw_ok)
-                .after(animator_rect_to_square)
-                .after(animator_rect_to_angle);
+                .play(animator_rect_to_angle);
+//                .before(animator_draw_ok)
+//                .after(animator_rect_to_square)
+//                .after(animator_rect_to_angle);
 
     }
 

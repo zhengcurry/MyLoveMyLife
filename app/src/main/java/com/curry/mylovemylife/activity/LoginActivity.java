@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.curry.mylovemylife.R;
 import com.curry.mylovemylife.widget.AnimationButton;
+import com.curry.mylovemylife.R;
 
 public class LoginActivity extends BaseActivity {
     private TextView mTextView;
